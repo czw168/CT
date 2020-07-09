@@ -254,6 +254,7 @@ public class SqliteTest {
 	public static void main(String[] args) {
 		Thread t = new Thread();
 		t.start();
+		// master 修改
 	}
 	
 	
