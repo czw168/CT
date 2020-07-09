@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ubot.mapper.diy.user.UserMapper_">
+  <resultMap id="BaseResultMap" type="cn.ubot.pojo.diy.user.UserRole_">
+    <id column="id" property="id" />
+    <result column="userName" property="userName" />
+    <result column="password" property="password" />
+    <result column="salt" property="salt" />
+    <result column="status" property="status" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+    <result column="roleId" property="roleId" />
+    <result column="roleName" property="roleName" />
+    <result column="desc_" property="desc" />
+  </resultMap>
+  
+  <resultMap id="RolePermission_Mapper" type="cn.ubot.pojo.diy.user.RolePermission_">
+  	<result column="id" property="id" />
+    <result column="roleName" property="roleName" />
+    <result column="permissionName" property="permissionName" />
+  </resultMap>
+  
+  <select id="listUserAndRole" resultMap="BaseResultMap">
+  	select 
+	u.id,u.name as userName,u.status,u.create_time,u.update_time,
+	r.name as roleName,r.id as roleId,r.desc_ 
+	from user u,role r,user_role ur
+	where u.id = ur.uid and r.id  = ur.rid
+  </select>
+  
+  <select id="getIdByName" resultType="Integer">
+  	select id from user where name = #{name}
+  </select>
+  
+  <select id="getPermissionNameByid" resultType="String">
+  	select p.name
+	from role_permission rp
+	left join permission p on rp.pid = p.id
+	where rp.rid = #{id}
+  </select>
+  
+  <select id="getRoleNameAndPermissionName" resultMap="RolePermission_Mapper">
+  	select r.name as roleName,p.name as permissionName,p.id  from permission p
+	LEFT JOIN role_permission rp on p.id = rp.pid
+	LEFT JOIN role r on rp.rid = r.id
+  </select>
+  
+</mapper>

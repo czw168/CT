@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ubot.mapper.diy.production.LtcMapper_">
+	<resultMap id="BaseResultMap" type="cn.ubot.pojo.diy.production.Ltc_">
+		<id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="ltc" jdbcType="VARCHAR" property="ltc" />
+	    <result column="jo_no" jdbcType="VARCHAR" property="joNo" />
+	    <result column="ubot_pn" jdbcType="VARCHAR" property="ubotPn" />
+	    <result column="desc_" jdbcType="VARCHAR" property="desc" />
+	    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+	    <result column="cust_pn" jdbcType="VARCHAR" property="custPn" />
+	    <result column="lane" jdbcType="INTEGER" property="lane" />
+	    <result column="machine" jdbcType="VARCHAR" property="machine" />
+	    <result column="puching_tool" jdbcType="VARCHAR" property="puchingTool" />
+	    <result column="material_lot" jdbcType="VARCHAR" property="materialLot" />
+	    <result column="source_batch_code" jdbcType="VARCHAR" property="sourceBatchCode" />
+	    <result column="lot_type" jdbcType="VARCHAR" property="lotType" />
+	    <result column="product_type" jdbcType="VARCHAR" property="productType" />
+	    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+	    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+	    <result column="production_date" jdbcType="TIMESTAMP" property="productionDate" />
+	    <result column="lot_serics" jdbcType="VARCHAR" property="lotSerics" />
+	    <result column="sublot_serics" jdbcType="VARCHAR" property="sublotSerics" />
+	    <result column="forming_tool" jdbcType="VARCHAR" property="formingTool" />
+	    <result column="scitting_tool" jdbcType="VARCHAR" property="scittingTool" />
+	    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+	    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+	</resultMap>
+  
+	<select id="listLtc" resultMap="BaseResultMap">
+	select * from ltc where 1=1
+	<if test=" ltc!=null and ltc!='' ">
+		and ltc like CONCAT('%',#{ltc},'%')
+	</if>
+	group by ltc 
+	ORDER BY ltc desc 
+	</select>
+  
+</mapper>

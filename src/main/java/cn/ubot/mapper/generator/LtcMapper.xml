@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ubot.mapper.generator.LtcMapper">
+  <resultMap id="BaseResultMap" type="cn.ubot.pojo.generator.Ltc">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ltc" jdbcType="VARCHAR" property="ltc" />
+    <result column="jo_no" jdbcType="VARCHAR" property="joNo" />
+    <result column="ubot_pn" jdbcType="VARCHAR" property="ubotPn" />
+    <result column="desc_" jdbcType="VARCHAR" property="desc" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="cust_pn" jdbcType="VARCHAR" property="custPn" />
+    <result column="lane" jdbcType="INTEGER" property="lane" />
+    <result column="machine" jdbcType="VARCHAR" property="machine" />
+    <result column="puching_tool" jdbcType="VARCHAR" property="puchingTool" />
+    <result column="material_lot" jdbcType="VARCHAR" property="materialLot" />
+    <result column="source_batch_code" jdbcType="VARCHAR" property="sourceBatchCode" />
+    <result column="lot_type" jdbcType="VARCHAR" property="lotType" />
+    <result column="product_type" jdbcType="VARCHAR" property="productType" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="production_date" jdbcType="TIMESTAMP" property="productionDate" />
+    <result column="lot_serics" jdbcType="VARCHAR" property="lotSerics" />
+    <result column="sublot_serics" jdbcType="VARCHAR" property="sublotSerics" />
+    <result column="forming_tool" jdbcType="VARCHAR" property="formingTool" />
+    <result column="scitting_tool" jdbcType="VARCHAR" property="scittingTool" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.ubot.pojo.generator.Ltc">
+    <result column="remarks" jdbcType="LONGVARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, ltc, jo_no, ubot_pn, desc_, customer_name, cust_pn, lane, machine, puching_tool, 
+    material_lot, source_batch_code, lot_type, product_type, create_by, update_by, production_date, 
+    lot_serics, sublot_serics, forming_tool, scitting_tool, create_time, update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    remarks
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="cn.ubot.pojo.generator.LtcExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ltc
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="cn.ubot.pojo.generator.LtcExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ltc
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ltc
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ltc
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.ubot.pojo.generator.LtcExample">
+    delete from ltc
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.ubot.pojo.generator.Ltc">
+    insert into ltc (id, ltc, jo_no, 
+      ubot_pn, desc_, customer_name, 
+      cust_pn, lane, machine, 
+      puching_tool, material_lot, source_batch_code, 
+      lot_type, product_type, create_by, 
+      update_by, production_date, lot_serics, 
+      sublot_serics, forming_tool, scitting_tool, 
+      create_time, update_time, remarks
+      )
+    values (#{id,jdbcType=INTEGER}, #{ltc,jdbcType=VARCHAR}, #{joNo,jdbcType=VARCHAR}, 
+      #{ubotPn,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, 
+      #{custPn,jdbcType=VARCHAR}, #{lane,jdbcType=INTEGER}, #{machine,jdbcType=VARCHAR}, 
+      #{puchingTool,jdbcType=VARCHAR}, #{materialLot,jdbcType=VARCHAR}, #{sourceBatchCode,jdbcType=VARCHAR}, 
+      #{lotType,jdbcType=VARCHAR}, #{productType,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{updateBy,jdbcType=VARCHAR}, #{productionDate,jdbcType=TIMESTAMP}, #{lotSerics,jdbcType=VARCHAR}, 
+      #{sublotSerics,jdbcType=VARCHAR}, #{formingTool,jdbcType=VARCHAR}, #{scittingTool,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{remarks,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.ubot.pojo.generator.Ltc">
+    insert into ltc
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="ltc != null">
+        ltc,
+      </if>
+      <if test="joNo != null">
+        jo_no,
+      </if>
+      <if test="ubotPn != null">
+        ubot_pn,
+      </if>
+      <if test="desc != null">
+        desc_,
+      </if>
+      <if test="customerName != null">
+        customer_name,
+      </if>
+      <if test="custPn != null">
+        cust_pn,
+      </if>
+      <if test="lane != null">
+        lane,
+      </if>
+      <if test="machine != null">
+        machine,
+      </if>
+      <if test="puchingTool != null">
+        puching_tool,
+      </if>
+      <if test="materialLot != null">
+        material_lot,
+      </if>
+      <if test="sourceBatchCode != null">
+        source_batch_code,
+      </if>
+      <if test="lotType != null">
+        lot_type,
+      </if>
+      <if test="productType != null">
+        product_type,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="productionDate != null">
+        production_date,
+      </if>
+      <if test="lotSerics != null">
+        lot_serics,
+      </if>
+      <if test="sublotSerics != null">
+        sublot_serics,
+      </if>
+      <if test="formingTool != null">
+        forming_tool,
+      </if>
+      <if test="scittingTool != null">
+        scitting_tool,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ltc != null">
+        #{ltc,jdbcType=VARCHAR},
+      </if>
+      <if test="joNo != null">
+        #{joNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ubotPn != null">
+        #{ubotPn,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null">
+        #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="custPn != null">
+        #{custPn,jdbcType=VARCHAR},
+      </if>
+      <if test="lane != null">
+        #{lane,jdbcType=INTEGER},
+      </if>
+      <if test="machine != null">
+        #{machine,jdbcType=VARCHAR},
+      </if>
+      <if test="puchingTool != null">
+        #{puchingTool,jdbcType=VARCHAR},
+      </if>
+      <if test="materialLot != null">
+        #{materialLot,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceBatchCode != null">
+        #{sourceBatchCode,jdbcType=VARCHAR},
+      </if>
+      <if test="lotType != null">
+        #{lotType,jdbcType=VARCHAR},
+      </if>
+      <if test="productType != null">
+        #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="productionDate != null">
+        #{productionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lotSerics != null">
+        #{lotSerics,jdbcType=VARCHAR},
+      </if>
+      <if test="sublotSerics != null">
+        #{sublotSerics,jdbcType=VARCHAR},
+      </if>
+      <if test="formingTool != null">
+        #{formingTool,jdbcType=VARCHAR},
+      </if>
+      <if test="scittingTool != null">
+        #{scittingTool,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.ubot.pojo.generator.LtcExample" resultType="java.lang.Long">
+    select count(*) from ltc
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ltc
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.ltc != null">
+        ltc = #{record.ltc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.joNo != null">
+        jo_no = #{record.joNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ubotPn != null">
+        ubot_pn = #{record.ubotPn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.desc != null">
+        desc_ = #{record.desc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerName != null">
+        customer_name = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custPn != null">
+        cust_pn = #{record.custPn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lane != null">
+        lane = #{record.lane,jdbcType=INTEGER},
+      </if>
+      <if test="record.machine != null">
+        machine = #{record.machine,jdbcType=VARCHAR},
+      </if>
+      <if test="record.puchingTool != null">
+        puching_tool = #{record.puchingTool,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialLot != null">
+        material_lot = #{record.materialLot,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourceBatchCode != null">
+        source_batch_code = #{record.sourceBatchCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lotType != null">
+        lot_type = #{record.lotType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productType != null">
+        product_type = #{record.productType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createBy != null">
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateBy != null">
+        update_by = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productionDate != null">
+        production_date = #{record.productionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lotSerics != null">
+        lot_serics = #{record.lotSerics,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sublotSerics != null">
+        sublot_serics = #{record.sublotSerics,jdbcType=VARCHAR},
+      </if>
+      <if test="record.formingTool != null">
+        forming_tool = #{record.formingTool,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scittingTool != null">
+        scitting_tool = #{record.scittingTool,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update ltc
+    set id = #{record.id,jdbcType=INTEGER},
+      ltc = #{record.ltc,jdbcType=VARCHAR},
+      jo_no = #{record.joNo,jdbcType=VARCHAR},
+      ubot_pn = #{record.ubotPn,jdbcType=VARCHAR},
+      desc_ = #{record.desc,jdbcType=VARCHAR},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      cust_pn = #{record.custPn,jdbcType=VARCHAR},
+      lane = #{record.lane,jdbcType=INTEGER},
+      machine = #{record.machine,jdbcType=VARCHAR},
+      puching_tool = #{record.puchingTool,jdbcType=VARCHAR},
+      material_lot = #{record.materialLot,jdbcType=VARCHAR},
+      source_batch_code = #{record.sourceBatchCode,jdbcType=VARCHAR},
+      lot_type = #{record.lotType,jdbcType=VARCHAR},
+      product_type = #{record.productType,jdbcType=VARCHAR},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      update_by = #{record.updateBy,jdbcType=VARCHAR},
+      production_date = #{record.productionDate,jdbcType=TIMESTAMP},
+      lot_serics = #{record.lotSerics,jdbcType=VARCHAR},
+      sublot_serics = #{record.sublotSerics,jdbcType=VARCHAR},
+      forming_tool = #{record.formingTool,jdbcType=VARCHAR},
+      scitting_tool = #{record.scittingTool,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      remarks = #{record.remarks,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ltc
+    set id = #{record.id,jdbcType=INTEGER},
+      ltc = #{record.ltc,jdbcType=VARCHAR},
+      jo_no = #{record.joNo,jdbcType=VARCHAR},
+      ubot_pn = #{record.ubotPn,jdbcType=VARCHAR},
+      desc_ = #{record.desc,jdbcType=VARCHAR},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      cust_pn = #{record.custPn,jdbcType=VARCHAR},
+      lane = #{record.lane,jdbcType=INTEGER},
+      machine = #{record.machine,jdbcType=VARCHAR},
+      puching_tool = #{record.puchingTool,jdbcType=VARCHAR},
+      material_lot = #{record.materialLot,jdbcType=VARCHAR},
+      source_batch_code = #{record.sourceBatchCode,jdbcType=VARCHAR},
+      lot_type = #{record.lotType,jdbcType=VARCHAR},
+      product_type = #{record.productType,jdbcType=VARCHAR},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      update_by = #{record.updateBy,jdbcType=VARCHAR},
+      production_date = #{record.productionDate,jdbcType=TIMESTAMP},
+      lot_serics = #{record.lotSerics,jdbcType=VARCHAR},
+      sublot_serics = #{record.sublotSerics,jdbcType=VARCHAR},
+      forming_tool = #{record.formingTool,jdbcType=VARCHAR},
+      scitting_tool = #{record.scittingTool,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.ubot.pojo.generator.Ltc">
+    update ltc
+    <set>
+      <if test="ltc != null">
+        ltc = #{ltc,jdbcType=VARCHAR},
+      </if>
+      <if test="joNo != null">
+        jo_no = #{joNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ubotPn != null">
+        ubot_pn = #{ubotPn,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null">
+        desc_ = #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="custPn != null">
+        cust_pn = #{custPn,jdbcType=VARCHAR},
+      </if>
+      <if test="lane != null">
+        lane = #{lane,jdbcType=INTEGER},
+      </if>
+      <if test="machine != null">
+        machine = #{machine,jdbcType=VARCHAR},
+      </if>
+      <if test="puchingTool != null">
+        puching_tool = #{puchingTool,jdbcType=VARCHAR},
+      </if>
+      <if test="materialLot != null">
+        material_lot = #{materialLot,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceBatchCode != null">
+        source_batch_code = #{sourceBatchCode,jdbcType=VARCHAR},
+      </if>
+      <if test="lotType != null">
+        lot_type = #{lotType,jdbcType=VARCHAR},
+      </if>
+      <if test="productType != null">
+        product_type = #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="productionDate != null">
+        production_date = #{productionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lotSerics != null">
+        lot_serics = #{lotSerics,jdbcType=VARCHAR},
+      </if>
+      <if test="sublotSerics != null">
+        sublot_serics = #{sublotSerics,jdbcType=VARCHAR},
+      </if>
+      <if test="formingTool != null">
+        forming_tool = #{formingTool,jdbcType=VARCHAR},
+      </if>
+      <if test="scittingTool != null">
+        scitting_tool = #{scittingTool,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.ubot.pojo.generator.Ltc">
+    update ltc
+    set ltc = #{ltc,jdbcType=VARCHAR},
+      jo_no = #{joNo,jdbcType=VARCHAR},
+      ubot_pn = #{ubotPn,jdbcType=VARCHAR},
+      desc_ = #{desc,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      cust_pn = #{custPn,jdbcType=VARCHAR},
+      lane = #{lane,jdbcType=INTEGER},
+      machine = #{machine,jdbcType=VARCHAR},
+      puching_tool = #{puchingTool,jdbcType=VARCHAR},
+      material_lot = #{materialLot,jdbcType=VARCHAR},
+      source_batch_code = #{sourceBatchCode,jdbcType=VARCHAR},
+      lot_type = #{lotType,jdbcType=VARCHAR},
+      product_type = #{productType,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      production_date = #{productionDate,jdbcType=TIMESTAMP},
+      lot_serics = #{lotSerics,jdbcType=VARCHAR},
+      sublot_serics = #{sublotSerics,jdbcType=VARCHAR},
+      forming_tool = #{formingTool,jdbcType=VARCHAR},
+      scitting_tool = #{scittingTool,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.ubot.pojo.generator.Ltc">
+    update ltc
+    set ltc = #{ltc,jdbcType=VARCHAR},
+      jo_no = #{joNo,jdbcType=VARCHAR},
+      ubot_pn = #{ubotPn,jdbcType=VARCHAR},
+      desc_ = #{desc,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      cust_pn = #{custPn,jdbcType=VARCHAR},
+      lane = #{lane,jdbcType=INTEGER},
+      machine = #{machine,jdbcType=VARCHAR},
+      puching_tool = #{puchingTool,jdbcType=VARCHAR},
+      material_lot = #{materialLot,jdbcType=VARCHAR},
+      source_batch_code = #{sourceBatchCode,jdbcType=VARCHAR},
+      lot_type = #{lotType,jdbcType=VARCHAR},
+      product_type = #{productType,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      production_date = #{productionDate,jdbcType=TIMESTAMP},
+      lot_serics = #{lotSerics,jdbcType=VARCHAR},
+      sublot_serics = #{sublotSerics,jdbcType=VARCHAR},
+      forming_tool = #{formingTool,jdbcType=VARCHAR},
+      scitting_tool = #{scittingTool,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

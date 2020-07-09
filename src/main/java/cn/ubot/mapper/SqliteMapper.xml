@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ubot.mapper.SqliteMapper">
+  
+  <select id="getLotNo" resultType="String">
+  	select distinct(Column7) from tbl_inspect_detail_46
+  </select>
+  
+  <select id="getLotNoFirstID" resultType="Integer">
+  	select ID FROM tbl_inspect_detail_46 where Column7 like #{lotNo}||'%' LIMIT 1
+  </select>
+  
+  <select id="getLotNoLastID" resultType="Integer">
+	select ID FROM tbl_inspect_detail_46 where Column7 like #{lotNo}||'%' ORDER BY ID DESC LIMIT 1
+  </select>
+  
+  <select id="getOkCount" resultType="Integer">
+  	select count(ID) from tbl_inspect_detail_46 where ID BETWEEN #{lotNoFirstID} and #{lotNoLastID} and Judge = 'OK'
+  </select>
+  
+  <select id="getID" resultType="Integer">
+  	select ID from tbl_inspect_detail_46 where ID BETWEEN #{lotNoFirstID} and #{lotNoLastID} and Judge = 'NG'
+  </select>
+  
+  <select id="getSum" resultType="Integer">
+  	select
+	  	<if test="l == 1">
+	  		sum(Column13 + Column14 + Column15 + Column16 + Column17 + Column18 + Column19 + Column20 + Column21 + Column22 + Column23 + Column24 + Column25 + Column26 + Column27 + Column28 + Column29 + Column30 ) as `sum`
+	  	</if>
+	  	<if test="l == 2">
+	  		sum(Column43 + Column44 + Column45 + Column46 + Column47 + Column48 + Column49 + Column50 + Column51 + Column52 + Column53 + Column54 + Column55 + Column56 + Column57 + Column58 + Column59 + Column60 ) as `sum`
+	  	</if>
+	  	<if test="l == 3">
+			sum(Column73 + Column74 + Column75 + Column76 + Column77 + Column78 + Column79 + Column80 + Column81 + Column82 + Column83 + Column84 + Column85 + Column86 + Column87 + Column88 + Column89 + Column90 ) as `sum`
+	  	</if>
+  	from tbl_inspect_detail_46 where ID = #{id}
+  </select>
+  
+  <select id="getOkResult" resultType="SqliteResult">
+  	select 
+  		<if test="l == 1">
+  			avg(Column10) as okAvg,
+  			max(Column10) as okMax,
+  			min(Column10) as okMin
+  		</if>
+  		<if test="l == 2">
+  			avg(Column40) as okAvg,
+  			max(Column40) as okMax,
+  			min(Column40) as okMin
+  		</if>
+  		<if test="l == 3">
+  			avg(Column70) as okAvg,
+  			max(Column70) as okMax,
+  			min(Column70) as okMin
+  		</if>
+  	from tbl_inspect_detail_46 where ID BETWEEN #{lotNoFirstID} and #{lotNoLastID} 
+  	<if test="ids.size() > 0">
+		AND ID NOT IN 
+	  	<foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</if>
+  	
+  </select>
+  
+  <select id="getNgResult" resultType="SqliteResult">
+  	select 
+  		<if test="l == 1">
+  			avg(Column10) as ngAvg,
+  			max(Column10) as ngMax,
+  			min(Column10) as ngMin
+  		</if>
+  		<if test="l == 2">
+  			avg(Column40) as ngAvg,
+  			max(Column40) as ngMax,
+  			min(Column40) as ngMin
+  		</if>
+  		<if test="l == 3">
+  			avg(Column70) as ngAvg,
+  			max(Column70) as ngMax,
+  			min(Column70) as ngMin
+  		</if>
+  	from tbl_inspect_detail_46 where ID IN 
+  	<foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+		#{id}
+	</foreach>
+  </select>
+  
+  
+  
+  
+  
+  
+  
+</mapper>

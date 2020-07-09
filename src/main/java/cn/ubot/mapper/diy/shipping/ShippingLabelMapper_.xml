@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ubot.mapper.diy.shipping.ShippingLabelMapper_">
+
+	<resultMap id="BaseResultMap" type="cn.ubot.pojo.diy.shipping.ShippingLabel">
+		<id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="ship_lot" jdbcType="VARCHAR" property="shipLot" />
+	    <result column="ship_date" jdbcType="DATE" property="shipDate" />
+	    <result column="cartons" jdbcType="INTEGER" property="cartons" />
+	    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+	    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+	    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+	    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+	    <result column="qty" property="qty" />
+	</resultMap>
+  
+  
+  	<select id="getMaxSerialNumber" resultType="String">
+		select max(serial_number) from shipping_lot where year_and_month = #{param}
+	</select>
+  
+	<!-- <select id="getMaxShipLot" resultType="String">
+		select max(ship_lot) from shipping_label
+	</select> -->
+	
+	
+	<select id="getMaxId" resultType="Integer">
+		select max(id) from shipping_label_1
+	</select>
+	
+	<select id="getShippingLabelList" resultMap="BaseResultMap">
+		select s1.*,(select sum(qty) from shipping_label_2 s2 where s1.id = s2.sid) as qty  from shipping_label_1 s1 where 1=1 
+		<if test=" shipLot!=null and shipLot!='' ">
+			and s1.ship_lot like CONCAT('%',#{shipLot},'%')
+		</if>
+		order by s1.ship_lot desc
+		
+		
+	</select>
+	
+	<!-- <select id="getMaxItem" resultType="Integer">
+		select max(item) from tpo2 where tid = #{tid}
+	</select> -->
+  
+</mapper>

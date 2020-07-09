@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ubot.mapper.diy.shipping.TpoMapper_">
+	<resultMap id="BaseResultMap" type="cn.ubot.pojo.diy.shipping.Tpo">
+		<id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="customer" jdbcType="VARCHAR" property="customer" />
+	    <result column="bill_to" jdbcType="VARCHAR" property="billTo" />
+	    <result column="ship_to" jdbcType="VARCHAR" property="shipTo" />
+	    <result column="tpo" jdbcType="VARCHAR" property="tpo" />
+	    <result column="customer_po" jdbcType="VARCHAR" property="customerPo" />
+	    <result column="create_date" jdbcType="DATE" property="createDate" />
+	    <result column="terms" jdbcType="VARCHAR" property="terms" />
+	    <result column="shipmode" jdbcType="VARCHAR" property="shipmode" />
+	    <result column="required_shipdate" jdbcType="VARCHAR" property="requiredShipdate" />
+	    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+	    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+	    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+	    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+	    <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
+	    
+	    <result column="qty" jdbcType="INTEGER" property="qty" />
+	</resultMap>
+  
+	<select id="getMaxTpo" resultType="String">
+		select max(tpo) from tpo1
+	</select>
+	
+	<select id="getMaxId" resultType="Integer">
+		select max(id) from tpo1
+	</select>
+	
+	<select id="getTpoList" resultMap="BaseResultMap">
+		select a.*,(select sum(qty) from tpo2 b where b.tid = a.id) as qty from tpo1 a where 1=1
+		<if test=" tpo!=null and tpo!='' ">
+			and tpo like CONCAT('%',#{tpo},'%')
+		</if>
+		order by a.tpo desc
+	</select>
+	
+	<select id="getMaxItem" resultType="Integer">
+		select max(item) from tpo2 where tid = #{tid}
+	</select>
+	
+	<select id="getTpoTotalById" resultType="Integer">
+		select sum(qty) from tpo2 where tid = #{id}
+	</select>
+  
+</mapper>

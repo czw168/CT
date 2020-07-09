@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ubot.mapper.diy.production.PackingLabelMapper_">
+	<resultMap id="BaseResultMap" type="cn.ubot.pojo.generator.PackingLabel">
+		<id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="ltc" jdbcType="VARCHAR" property="ltc" />
+	    <result column="carton" jdbcType="VARCHAR" property="carton" />
+	    <result column="qty" jdbcType="INTEGER" property="qty" />
+	    <result column="q1" jdbcType="VARCHAR" property="q1" />
+	    <result column="q2" jdbcType="VARCHAR" property="q2" />
+	    <result column="q3" jdbcType="VARCHAR" property="q3" />
+	    <result column="packing_date" jdbcType="DATE" property="packingDate" />
+	    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+	    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+	    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+	    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+	</resultMap>
+	
+	<resultMap id="BaseResultMap2" type="cn.ubot.pojo.diy.production.PackingLtc">
+		<id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="ltc" jdbcType="VARCHAR" property="ltc" />
+	    <result column="carton" jdbcType="VARCHAR" property="carton" />
+	    <result column="qty" jdbcType="INTEGER" property="qty" />
+	    <result column="q1" jdbcType="VARCHAR" property="q1" />
+	    <result column="q2" jdbcType="VARCHAR" property="q2" />
+	    <result column="q3" jdbcType="VARCHAR" property="q3" />
+	    <result column="packing_date" jdbcType="DATE" property="packingDate" />
+	    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+	    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+	    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+	    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="ubot_pn" property="ubotPn" />
+		<result column="desc_" property="desc" />
+	</resultMap>
+  
+	<select id="getMaxCarton" resultType="String">
+		select max(carton) from packing_label
+	</select>
+	
+	<select id="getPackingLtc" resultMap="BaseResultMap2">
+		select 
+		p.*,l.ubot_pn,l.desc_
+		from packing_label p LEFT JOIN ltc l on p.ltc = l.ltc
+		where 1 = 1
+		<if test=" carton!=null and carton!='' ">
+			and p.carton like CONCAT('%',#{carton},'%')
+		</if>
+		<if test=" lotNo!=null and lotNo!='' ">
+			<!-- and r1.ltc like CONCAT('%',#{lotNo},'%') -->
+			and p.q1 like CONCAT('%',#{lotNo},'%') or p.q2 like CONCAT('%',#{lotNo},'%') or p.q3 like CONCAT('%',#{lotNo},'%')
+		</if>
+		order by carton desc
+	</select>
+  
+</mapper>

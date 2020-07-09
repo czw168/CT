@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ubot.mapper.diy.production.ReelLabelMapper_">
+	<resultMap id="BaseResultMap" type="cn.ubot.pojo.diy.production.ReelLabel_">
+	  <id column="id" jdbcType="BIGINT" property="id" />
+	  <result column="ltc" jdbcType="VARCHAR" property="ltc" />
+	  <result column="ubot_pn" jdbcType="VARCHAR" property="ubotPn" />
+	  <result column="desc_" jdbcType="VARCHAR" property="desc" />
+	  <result column="lane" jdbcType="VARCHAR" property="lane" />
+	  <result column="jo_no" jdbcType="VARCHAR" property="joNo" />
+	  <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+	  <result column="cust_pn" jdbcType="VARCHAR" property="custPn" />
+	  <result column="batches" jdbcType="INTEGER" property="batches" />
+	  <result column="material_lot" jdbcType="VARCHAR" property="materialLot" />
+	  <result column="machine" jdbcType="VARCHAR" property="machine" />
+	  <result column="puching_tool" jdbcType="VARCHAR" property="puchingTool" />
+	  <result column="forming_tool" jdbcType="VARCHAR" property="formingTool" />
+	  <result column="scitting_tool" jdbcType="VARCHAR" property="scittingTool" />
+	  <result column="production_date" jdbcType="DATE" property="productionDate" />
+	  <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+	  <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+	  <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+	  <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+	  <result column="status" jdbcType="INTEGER" property="status" />
+	  <result column="lot_no" property="lotNo" />
+	</resultMap>
+	
+	<select id="getReelLabelList" resultMap="BaseResultMap">
+		select r1.lot_no,r2.* from reel_label_lot r1 
+		left join reel_label r2 on r1.ltc = r2.ltc
+		where 1 =1
+		<if test=" ltc!=null and ltc!='' ">
+			and r1.ltc like CONCAT('%',#{ltc},'%')
+		</if>
+		order by r1.lot_no desc
+	</select>
+  
+</mapper>

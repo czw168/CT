@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ubot.mapper.diy.production.JoMapper_">
+	<resultMap id="BaseResultMap" type="cn.ubot.pojo.diy.production.Jo_">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="item" jdbcType="INTEGER" property="item" />
+		<result column="ubot_jo" jdbcType="VARCHAR" property="ubotJo" />
+		<result column="date" jdbcType="DATE" property="date" />
+		<result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+		<result column="region" jdbcType="VARCHAR" property="region" />
+		<result column="cust_pn" jdbcType="VARCHAR" property="custPn" />
+		<result column="ubot_pn" jdbcType="VARCHAR" property="ubotPn" />
+		<result column="desc_" jdbcType="VARCHAR" property="desc" />
+		<result column="uom" jdbcType="VARCHAR" property="uom" />
+		<result column="order_quantity" jdbcType="VARCHAR" property="orderQuantity" />
+		<result column="create_by" jdbcType="VARCHAR" property="createBy" />
+		<result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+		<result column="total" property="total" />
+	</resultMap>
+  
+	<select id="getMaxJoNo" resultType="String">
+		select  ubot_jo from jo GROUP BY ubot_jo desc limit 1
+	</select>
+  
+	 <select id="listJo" resultMap="BaseResultMap">
+	 	select ubot_jo,uom,sum(order_quantity) as total,create_by,create_time,update_by,update_time 
+	 	from jo where 1=1
+	 	<if test=" joNo!=null and joNo!='' ">
+			and ubot_jo like CONCAT('%',#{joNo},'%')
+		</if>
+	 	group by ubot_jo 
+	 	ORDER BY ubot_jo desc 
+	 </select>
+  
+	<select id="listDetailsJo" resultMap="BaseResultMap">
+		select id,ubot_jo,item,ubot_pn,desc_,customer_name,cust_pn,order_quantity,date,remarks,uom,(select sum(order_quantity) from jo where ubot_jo = #{joNo}) as total,create_by,create_time,update_by,update_time 
+		from jo  where ubot_jo = #{joNo} ORDER BY item asc 
+	</select>
+  
+	<select id="getMaxItem" resultType="Integer">
+		select max(item) as item from jo  where ubot_jo = #{joNo}
+	</select>
+  
+</mapper>
