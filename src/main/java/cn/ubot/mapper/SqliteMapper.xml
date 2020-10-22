@@ -1,90 +1,714 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.ubot.mapper.SqliteMapper">
-  
+
   <select id="getLotNo" resultType="String">
-  	select distinct(Column7) from tbl_inspect_detail_46
+  	<!-- select distinct(Column7) from #{table} where Date like #{date}||'%' -->
+  	select distinct(Column7) from ${table} where Date like CONCAT(#{date},'%')
   </select>
   
   <select id="getLotNoFirstID" resultType="Integer">
-  	select ID FROM tbl_inspect_detail_46 where Column7 like #{lotNo}||'%' LIMIT 1
+  	<!-- select ID FROM #{table} where Column7 like #{lotNo}||'%' LIMIT 1 -->
+  	select ID FROM ${table} where Column7 like CONCAT(#{lotNo},'%') LIMIT 1
   </select>
   
   <select id="getLotNoLastID" resultType="Integer">
-	select ID FROM tbl_inspect_detail_46 where Column7 like #{lotNo}||'%' ORDER BY ID DESC LIMIT 1
+	<!-- select ID FROM #{table} where Column7 like #{lotNo}||'%' ORDER BY ID DESC LIMIT 1 -->
+	select ID FROM ${table} where Column7 like CONCAT(#{lotNo},'%') ORDER BY ID DESC LIMIT 1
   </select>
   
   <select id="getOkCount" resultType="Integer">
-  	select count(ID) from tbl_inspect_detail_46 where ID BETWEEN #{lotNoFirstID} and #{lotNoLastID} and Judge = 'OK'
+  	select count(ID) from ${table} where ID BETWEEN #{lotNoFirstID} and #{lotNoLastID} and Judge = 'OK'
   </select>
   
   <select id="getID" resultType="Integer">
-  	select ID from tbl_inspect_detail_46 where ID BETWEEN #{lotNoFirstID} and #{lotNoLastID} and Judge = 'NG'
+  	select ID from ${table} where ID BETWEEN #{lotNoFirstID} and #{lotNoLastID} and Judge = 'NG'
   </select>
   
   <select id="getSum" resultType="Integer">
-  	select
-	  	<if test="l == 1">
-	  		sum(Column13 + Column14 + Column15 + Column16 + Column17 + Column18 + Column19 + Column20 + Column21 + Column22 + Column23 + Column24 + Column25 + Column26 + Column27 + Column28 + Column29 + Column30 ) as `sum`
-	  	</if>
-	  	<if test="l == 2">
-	  		sum(Column43 + Column44 + Column45 + Column46 + Column47 + Column48 + Column49 + Column50 + Column51 + Column52 + Column53 + Column54 + Column55 + Column56 + Column57 + Column58 + Column59 + Column60 ) as `sum`
-	  	</if>
-	  	<if test="l == 3">
-			sum(Column73 + Column74 + Column75 + Column76 + Column77 + Column78 + Column79 + Column80 + Column81 + Column82 + Column83 + Column84 + Column85 + Column86 + Column87 + Column88 + Column89 + Column90 ) as `sum`
-	  	</if>
-  	from tbl_inspect_detail_46 where ID = #{id}
+  	select 
+  	<choose>
+	  	<when test="table == 'tbl_inspect_detail_66'">
+	  		sum(if(Column10>90,0,1) + Column13 + Column14 + Column15 + Column16 + Column17 + Column18 + Column19 + Column20 + Column21 + Column22 + Column23 + Column24 + Column25 + Column26 + Column27 + Column28 + Column29 + Column30 + Column31 + Column32 + Column33 + Column34) as `sum`
+	  	</when>
+  		<when test="table == 'tbl_inspect_detail_51'">
+		  	<if test="l == 1">
+		  		sum(if(Column10>90,0,1) + Column13 + Column14 + Column15 + Column16 + Column17 + Column18 + Column19 + Column20 + Column21 + Column22 + Column23 + Column24 + Column25) as `sum`
+		  	</if>
+		  	<if test="l == 2">
+		  		sum(if(Column29>90,0,1) + Column32 + Column33 + Column34 + Column35 + Column36 + Column37 + Column38 + Column39 + Column40 + Column41 + Column42 + Column43 + Column44) as `sum`
+		  	</if>
+		  	<if test="l == 3">
+		  		sum(if(Column48>90,0,1) + Column51 + Column52 + Column53 + Column54 + Column55 + Column56 + Column57 + Column58 + Column59 + Column60 + Column61 + Column62 + Column63) as `sum`
+		  	</if>
+		  	<if test="l == 4">
+		  		sum(if(Column67>90,0,1) + Column70 + Column71 + Column72 + Column73 + Column74 + Column75 + Column76 + Column77 + Column78 + Column79 + Column80 + Column81 + Column82) as `sum`
+		  	</if>
+		  	<if test="l == 5">
+		  		sum(if(Column86>90,0,1) + Column89 + Column90 + Column91 + Column92 + Column93 + Column94 + Column95 + Column96 + Column97 + Column98 + Column99 + Column100 + Column101 + Column102) as `sum`
+		  	</if>
+		  	<if test="l == 6">
+		  		sum(if(Column106>90,0,1) + Column109 + Column110 + Column111 + Column112 + Column113 + Column114 + Column115 + Column116 + Column117 + Column118 + Column119 + Column120 + Column121) as `sum`
+		  	</if>
+	  	</when>
+	  	<otherwise>
+		  	<if test="l == 1">
+		  		sum(Column13 + Column14 + Column15 + Column16 + Column17 + Column18 + Column19 + Column20 + Column21 + Column22 + Column23 + Column24 + Column25 + Column26 + Column27 + Column28 + Column29 + Column30 ) as `sum`
+		  	</if>
+		  	<if test="l == 2">
+		  		sum(Column43 + Column44 + Column45 + Column46 + Column47 + Column48 + Column49 + Column50 + Column51 + Column52 + Column53 + Column54 + Column55 + Column56 + Column57 + Column58 + Column59 + Column60 ) as `sum`
+		  	</if>
+		  	<if test="l == 3">
+				sum(Column73 + Column74 + Column75 + Column76 + Column77 + Column78 + Column79 + Column80 + Column81 + Column82 + Column83 + Column84 + Column85 + Column86 + Column87 + Column88 + Column89 + Column90 ) as `sum`
+		  	</if>
+	  	</otherwise>
+  	</choose>
+  	from ${table} where ID = #{id}
   </select>
   
   <select id="getOkResult" resultType="SqliteResult">
-  	select 
-  		<if test="l == 1">
-  			avg(Column10) as okAvg,
+  	select
+  	<choose>
+  		<when test="table == 'tbl_inspect_detail_66'">
+ 			avg(Column10) as okAvg,
   			max(Column10) as okMax,
   			min(Column10) as okMin
-  		</if>
-  		<if test="l == 2">
-  			avg(Column40) as okAvg,
-  			max(Column40) as okMax,
-  			min(Column40) as okMin
-  		</if>
-  		<if test="l == 3">
-  			avg(Column70) as okAvg,
-  			max(Column70) as okMax,
-  			min(Column70) as okMin
-  		</if>
-  	from tbl_inspect_detail_46 where ID BETWEEN #{lotNoFirstID} and #{lotNoLastID} 
+  		</when>
+  		<when test="table == 'tbl_inspect_detail_51'">
+  			<if test="l == 1">
+	  			avg(Column10) as okAvg,
+	  			max(Column10) as okMax,
+	  			min(Column10) as okMin
+	  		</if>
+	  		<if test="l == 2">
+	  			avg(Column29) as okAvg,
+	  			max(Column29) as okMax,
+	  			min(Column29) as okMin
+	  		</if>
+	  		<if test="l == 3">
+	  			avg(Column48) as okAvg,
+	  			max(Column48) as okMax,
+	  			min(Column48) as okMin
+	  		</if>
+	  		<if test="l == 4">
+	  			avg(Column67) as okAvg,
+	  			max(Column67) as okMax,
+	  			min(Column67) as okMin
+	  		</if>
+	  		<if test="l == 5">
+	  			avg(Column86) as okAvg,
+	  			max(Column86) as okMax,
+	  			min(Column86) as okMin
+	  		</if>
+	  		<if test="l == 6">
+	  			avg(Column106) as okAvg,
+	  			max(Column106) as okMax,
+	  			min(Column106) as okMin
+	  		</if>
+  		</when>
+  		<otherwise>
+	  		<if test="l == 1">
+	  			avg(Column10) as okAvg,
+	  			max(Column10) as okMax,
+	  			min(Column10) as okMin
+	  		</if>
+	  		<if test="l == 2">
+	  			avg(Column40) as okAvg,
+	  			max(Column40) as okMax,
+	  			min(Column40) as okMin
+	  		</if>
+	  		<if test="l == 3">
+	  			avg(Column70) as okAvg,
+	  			max(Column70) as okMax,
+	  			min(Column70) as okMin
+	  		</if>
+  		</otherwise>
+  	</choose>
+  	from ${table} where ID BETWEEN #{lotNoFirstID} and #{lotNoLastID} 
   	<if test="ids.size() > 0">
 		AND ID NOT IN 
 	  	<foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
 			#{id}
 		</foreach>
 	</if>
-  	
   </select>
   
   <select id="getNgResult" resultType="SqliteResult">
   	select 
-  		<if test="l == 1">
-  			avg(Column10) as ngAvg,
+  	<choose>
+  		<when test="table == 'tbl_inspect_detail_66'">
+ 			avg(Column10) as ngAvg,
   			max(Column10) as ngMax,
   			min(Column10) as ngMin
-  		</if>
-  		<if test="l == 2">
-  			avg(Column40) as ngAvg,
-  			max(Column40) as ngMax,
-  			min(Column40) as ngMin
-  		</if>
-  		<if test="l == 3">
-  			avg(Column70) as ngAvg,
-  			max(Column70) as ngMax,
-  			min(Column70) as ngMin
-  		</if>
-  	from tbl_inspect_detail_46 where ID IN 
-  	<foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+  		</when>
+  		<when test="table == 'tbl_inspect_detail_51'">
+  			<if test="l == 1">
+	  			avg(Column10) as ngAvg,
+	  			max(Column10) as ngMax,
+	  			min(Column10) as ngMin
+	  		</if>
+	  		<if test="l == 2">
+	  			avg(Column29) as ngAvg,
+	  			max(Column29) as ngMax,
+	  			min(Column29) as ngMin
+	  		</if>
+	  		<if test="l == 3">
+	  			avg(Column48) as ngAvg,
+	  			max(Column48) as ngMax,
+	  			min(Column48) as ngMin
+	  		</if>
+	  		<if test="l == 4">
+	  			avg(Column67) as ngAvg,
+	  			max(Column67) as ngMax,
+	  			min(Column67) as ngMin
+	  		</if>
+	  		<if test="l == 5">
+	  			avg(Column86) as ngAvg,
+	  			max(Column86) as ngMax,
+	  			min(Column86) as ngMin
+	  		</if>
+	  		<if test="l == 6">
+	  			avg(Column106) as ngAvg,
+	  			max(Column106) as ngMax,
+	  			min(Column106) as ngMin
+	  		</if>
+  		</when>
+  		<otherwise>
+	  		<if test="l == 1">
+	  			avg(Column10) as ngAvg,
+	  			max(Column10) as ngMax,
+	  			min(Column10) as ngMin
+	  		</if>
+	  		<if test="l == 2">
+	  			avg(Column40) as ngAvg,
+	  			max(Column40) as ngMax,
+	  			min(Column40) as ngMin
+	  		</if>
+	  		<if test="l == 3">
+	  			avg(Column70) as ngAvg,
+	  			max(Column70) as ngMax,
+	  			min(Column70) as ngMin
+	  		</if>
+  		</otherwise>
+  	</choose>
+  	from ${table} where ID IN 
+  	<foreach collection="actualNgIds" item="id" index="index" open="(" close=")" separator=",">
 		#{id}
 	</foreach>
   </select>
+  
+  <select id="getLineChartData" resultType="SqliteResult2">
+	SELECT   
+		<if test="l == 1">
+  			Column31 as AO,
+  			Column34 as BO,
+  			Column37 as W
+  		</if>
+  		<if test="l == 2">
+  			Column61 as AO,
+  			Column64 as BO,
+  			Column67 as W
+  		</if>
+  		<if test="l == 3">
+  			Column91 as AO,
+  			Column94 as BO,
+  			Column97 as W
+  		</if>
+	from ${table} where ID BETWEEN #{lotNoFirstID} and #{lotNoLastID}
+  </select>
+  
+  <select id="getGroupNgCount" resultType="SqliteResult4">
+  	select
+  	<choose>
+  		<when test="table == 'tbl_inspect_detail_66'">
+  			sum(if(Column10>90,0,1)) as a,
+  			sum(Column13) as c1,
+  			sum(Column14) as c2,
+  			sum(Column15) as s1,
+  			sum(Column16) as s2,
+  			sum(Column17) as s3,
+  			sum(Column18) as s4,
+  			sum(Column19) as s5,
+  			sum(Column20) as cf1,
+  			sum(Column21) as cf2,
+  			sum(Column22) as sf1,
+  			sum(Column23) as sf2,
+  			sum(Column24) as sf3,
+  			sum(Column25) as burr_c1,
+  			sum(Column26) as burr_c2,
+  			sum(Column27) as burr_s1,
+  			sum(Column28) as burr_s2,
+  			sum(Column29) as burr_s3,
+  			sum(Column30) as burr_s4,
+  			sum(Column31) as burr_s5,
+  			sum(Column32) as burr_ed1,
+  			sum(Column33) as burr_ed2,
+  			sum(Column34) as double_punching
+  		</when>
+  		<when test="table == 'tbl_inspect_detail_51'">
+  			<if test="l == 1">
+  				sum(if(Column10>90,0,1)) as a,
+  				sum(Column13) as c1,
+  				sum(Column14) as c2,
+  				sum(Column15) as c3,
+  				sum(Column16) as s1,
+  				sum(Column17) as s2,
+  				sum(Column18) as s3,
+  				sum(Column19) as s4,
+  				sum(Column20) as sf1,
+  				sum(Column21) as sf2,
+  				sum(Column22) as sf3,
+  				sum(Column23) as cf1,
+  				sum(Column24) as cf2,
+  				sum(Column25) as cf3
+  			</if>
+  			<if test="l == 2">
+  				sum(if(Column29>90,0,1)) as a,
+  				sum(Column32) as c1,
+  				sum(Column33) as c2,
+  				sum(Column34) as c3,
+  				sum(Column35) as s1,
+  				sum(Column36) as s2,
+  				sum(Column37) as s3,
+  				sum(Column38) as s4,
+  				sum(Column39) as sf1,
+  				sum(Column40) as sf2,
+  				sum(Column41) as sf3,
+  				sum(Column42) as cf1,
+  				sum(Column43) as cf2,
+  				sum(Column44) as cf3
+  			</if>
+  			<if test="l == 3">
+  				sum(if(Column48>90,0,1)) as a,
+  				sum(Column51) as c1,
+  				sum(Column52) as c2,
+  				sum(Column53) as c3,
+  				sum(Column54) as s1,
+  				sum(Column55) as s2,
+  				sum(Column56) as s3,
+  				sum(Column57) as s4,
+  				sum(Column58) as sf1,
+  				sum(Column59) as sf2,
+  				sum(Column60) as sf3,
+  				sum(Column61) as cf1,
+  				sum(Column62) as cf2,
+  				sum(Column63) as cf3
+  			</if>
+  			<if test="l == 4">
+  				sum(if(Column67>90,0,1)) as a,
+  				sum(Column70) as c1,
+  				sum(Column71) as c2,
+  				sum(Column72) as c3,
+  				sum(Column73) as s1,
+  				sum(Column74) as s2,
+  				sum(Column75) as s3,
+  				sum(Column76) as s4,
+  				sum(Column77) as sf1,
+  				sum(Column78) as sf2,
+  				sum(Column79) as sf3,
+  				sum(Column80) as cf1,
+  				sum(Column81) as cf2,
+  				sum(Column82) as cf3
+  			</if>
+  			<if test="l == 5">
+  				sum(if(Column86>90,0,1)) as a,
+  				sum(Column89) as c1,
+  				sum(Column90) as c2,
+  				sum(Column91) as c3,
+  				sum(Column92) as s1,
+  				sum(Column93) as s2,
+  				sum(Column94) as s3,
+  				sum(Column95) as s4,
+  				sum(Column96) as s5,
+  				sum(Column97) as sf1,
+  				sum(Column98) as sf2,
+  				sum(Column99) as sf3,
+  				sum(Column100) as cf1,
+  				sum(Column101) as cf2,
+  				sum(Column102) as cf3
+  			</if>
+  			<if test="l == 6">
+  				sum(if(Column106>90,0,1)) as a,
+  				sum(Column109) as c1,
+  				sum(Column110) as c2,
+  				sum(Column111) as c3,
+  				sum(Column112) as s1,
+  				sum(Column113) as s2,
+  				sum(Column114) as s3,
+  				sum(Column115) as s4,
+  				sum(Column116) as sf1,
+  				sum(Column117) as sf2,
+  				sum(Column118) as sf3,
+  				sum(Column119) as cf1,
+  				sum(Column120) as cf2,
+  				sum(Column121) as cf3
+  			</if>
+  		</when>
+	  	<otherwise>
+	  		<if test="l == 1">
+	  			sum(Column13) as a,
+				sum(Column14) as c1,
+				sum(Column15) as c2,
+				sum(Column16) as s1,
+				sum(Column17) as s2,
+				sum(Column18) as s3,
+				sum(Column19) as s4,
+				sum(Column20) as s5,
+				sum(Column21) as sf1,
+				sum(Column22) as sf2,
+				sum(Column23) as sf3,
+				sum(Column24) as sf4,
+				sum(Column25) as ed1,
+				sum(Column26) as ed2,
+				sum(Column27) as ch1,
+				sum(Column28) as ch2,
+				sum(Column29) as sh1,
+				sum(Column30) as sh2
+	  		</if>
+	  		<if test="l == 2">
+	  			sum(Column43) as a,
+				sum(Column44) as c1,
+				sum(Column45) as c2,
+				sum(Column46) as s1,
+				sum(Column47) as s2,
+				sum(Column48) as s3,
+				sum(Column49) as s4,
+				sum(Column50) as s5,
+				sum(Column51) as sf1,
+				sum(Column52) as sf2,
+				sum(Column53) as sf3,
+				sum(Column54) as sf4,
+				sum(Column55) as ed1,
+				sum(Column56) as ed2,
+				sum(Column57) as ch1,
+				sum(Column58) as ch2,
+				sum(Column59) as sh1,
+				sum(Column60) as sh2
+	  		</if>
+	  		<if test="l == 3">
+	  			sum(Column73) as a,
+				sum(Column74) as c1,
+				sum(Column75) as c2,
+				sum(Column76) as s1,
+				sum(Column77) as s2,
+				sum(Column78) as s3,
+				sum(Column79) as s4,
+				sum(Column80) as s5,
+				sum(Column81) as sf1,
+				sum(Column82) as sf2,
+				sum(Column83) as sf3,
+				sum(Column84) as sf4,
+				sum(Column85) as ed1,
+				sum(Column86) as ed2,
+				sum(Column87) as ch1,
+				sum(Column88) as ch2,
+				sum(Column89) as sh1,
+				sum(Column90) as sh2
+	  		</if>
+	  	</otherwise>
+	 </choose>
+  	from ${table} where ID IN 
+  	<foreach collection="actualNgIds" item="id" index="index" open="(" close=")" separator=",">
+		#{id}
+	</foreach>
+  </select>
+  
+  
+  <select id="getCatANgInfo" resultType="java.util.Map">
+  
+  	select Date,ProcCount,
+		<if test="l == 1">
+			Column13 as a
+  		</if>
+  		<if test="l == 2">
+  			Column43 as a
+  		</if>
+  		<if test="l == 3">
+  			Column73 as a
+  		</if>
+  	from ${table} where ID IN 
+		<foreach collection="actualNgIds" item="id" index="index" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	and
+		<if test="l == 1">
+  			Column13 = 1
+  		</if>
+  		<if test="l == 2">
+  			Column43 = 1
+  		</if>
+  		<if test="l == 3">
+  			Column73 = 1
+  		</if>
+	
+  </select>
+  
+  <select id="getCatBNgInfo" resultType="java.util.Map">
+  	select Date,ProcCount from (
+  		select Date,ProcCount,
+			<if test="l == 1">
+				Column14 as c1,
+				Column15 as c2,
+				Column16 as s1,
+				Column17 as s2,
+				Column18 as s3,
+				Column19 as s4,
+				Column20 as s5
+	  		</if>
+	  		<if test="l == 2">
+	  			Column44 as c1,
+				Column45 as c2,
+				Column46 as s1,
+				Column47 as s2,
+				Column48 as s3,
+				Column49 as s4,
+				Column50 as s5
+	  		</if>
+	  		<if test="l == 3">
+	  			Column74 as c1,
+				Column75 as c2,
+				Column76 as s1,
+				Column77 as s2,
+				Column78 as s3,
+				Column79 as s4,
+				Column80 as s5
+	  		</if>
+  		from ${table} A where A.ID IN 
+			<foreach collection="actualNgIds" item="id" index="index" open="(" close=")" separator=",">
+				#{id}
+			</foreach>
+	) AS temp where c1 = 1 or c2 = 1 or s1 = 1 or s2 = 1 or s3 = 1 or s4 = 1 or s5 = 1
+  </select>
+  
+  <select id="getCatCNgInfo" resultType="java.util.Map">
+  	select Date,ProcCount from (
+  		select Date,ProcCount,
+			<if test="l == 1">
+				Column21 as sf1,
+				Column22 as sf2,
+				Column23 as sf3,
+				Column24 as sf4,
+				Column25 as ed1,
+				Column26 as ed2,
+				Column27 as ch1,
+				Column28 as ch2,
+				Column29 as sh1,
+				Column30 as sh2
+	  		</if>
+	  		<if test="l == 2">
+	  			Column51 as sf1,
+				Column52 as sf2,
+				Column53 as sf3,
+				Column54 as sf4,
+				Column55 as ed1,
+				Column56 as ed2,
+				Column57 as ch1,
+				Column58 as ch2,
+				Column59 as sh1,
+				Column60 as sh2
+	  		</if>
+	  		<if test="l == 3">
+	  			Column81 as sf1,
+				Column82 as sf2,
+				Column83 as sf3,
+				Column84 as sf4,
+				Column85 as ed1,
+				Column86 as ed2,
+				Column87 as ch1,
+				Column88 as ch2,
+				Column89 as sh1,
+				Column90 as sh2
+	  		</if>
+  		from ${table} A where A.ID IN 
+			<foreach collection="actualNgIds" item="id" index="index" open="(" close=")" separator=",">
+				#{id}
+			</foreach>
+	) AS temp where sf1 = 1 or sf2 = 1 or sf3 = 1 or sf4 = 1 or ed1 = 1 or ed2 = 1 or ch1 = 1 or ch2 = 1 or sh1 = 1 or sh2 = 1
+  </select>
+  
+  <!--   ============================== 动态查询 ==============================   -->
+  
+  <select id="getProductNo" resultType="String">
+  	select distinct InspectionNO from tbl_inspect_list ORDER BY InspectionNO
+  </select>
+  
+  <select id="getReportSettings" resultMap="reportSettingResultMap">
+  	<!-- select id,product_number,table_name,lot_number_column_name,link_count from report_setting 
+  	<if test="productNumber != null and productNumber != ''">
+  		where product_number = #{productNumber} 
+  	</if>
+  	ORDER BY product_number -->
+  	
+  	select 
+	r.id,r. product_number,r.table_name,r.lot_number_column_name,r.link_count,
+	p.id as pid,p.link,p.similarity_column_name,p.rs_id,
+	c.column_name,c.alias,c.`group`,c.pd_id
+	from report_setting r
+	left join param_detail p on r.id = p.rs_id 
+	left join column_detail c on p.id = c.pd_id
+	order by r.product_number,p.link,c.column_name
+  	
+  </select>
+  
+  <select id="getInspectionID" resultType="String">
+  	select distinct InspectionID from tbl_inspect_list ORDER BY InspectionID
+  </select>
+  
+  <select id="getMaxLinkColumnCount" resultType="java.util.Map">
+	select p.link,count(*) as count from param_detail p
+	left join column_detail c on p.id = c.pd_id
+	left join report_setting r on p.rs_id = r.id
+	where r.table_name = #{table}
+	group by p.link
+  </select>
+  
+  <resultMap id="columnDetailResultMap" type="cn.ubot.pojo.diy.ColumnDetail" >
+	<result column="column_name" property="columnName"/>
+	<result column="alias" property="alias"/>
+	<result column="group" property="group"/>
+	<result column="pd_id" property="pdId"/>
+  </resultMap>
+  
+  <resultMap id="paramDetailResultMap" type="cn.ubot.pojo.diy.ParamDetail" >
+	<id column="pid" property="id"/> 
+	<result column="link" property="link"/>
+	<result column="similarity_column_name" property="similarityColumnName"/>
+	<result column="rs_id" property="rsId"/>
+	<!-- <association property="columnDetail" javaType="ColumnDetail" resultMap="columnDetailResultMap">
+	
+	</association> -->
+  </resultMap>
+  
+  
+  <resultMap id="reportSettingResultMap" type="cn.ubot.pojo.diy.ReportSetting" >
+	<id column="id" property="id"/> 
+	<result column="product_number" property="productNumber"/>
+	<result column="table_name" property="tableName"/>
+	<result column="lot_number_column_name" property="lotNumberColumnName"/>
+	<result column="link_count" property="linkCount"/>
+	<!-- <association property="paramDetail" javaType="ParamDetail" resultMap="paramDetailResultMap">
+	
+	</association> -->
+	<collection property="paramDetail" ofType="cn.ubot.pojo.diy.ParamDetail">
+		<id column="pid" property="id"/> 
+		<result column="link" property="link"/>
+		<result column="similarity_column_name" property="similarityColumnName"/>
+		<result column="rs_id" property="rsId"/>
+		
+		<collection property="columnDetail" ofType="cn.ubot.pojo.diy.ColumnDetail">
+			<result column="column_name" property="columnName"/>
+			<result column="alias" property="alias"/>
+			<result column="group" property="group"/>
+			<result column="pd_id" property="pdId"/>
+		</collection>
+		
+	</collection>
+	
+  </resultMap>
+  
+  <select id="getReportSetting" resultMap="reportSettingResultMap">
+  	select id,product_number,table_name,lot_number_column_name,link_count from report_setting 
+  	
+  	<trim prefix="where" prefixOverrides="and | or">
+  		<if test="productNumber != null">
+			and product_number = #{productNumber}
+		</if>
+		<if test="tableName != null">
+			and table_name = #{tableName}
+		</if>
+	</trim>
+	
+  </select>
+
+  <select id="t_getLotNo" resultType="String">
+  	select distinct(${lotNumberColumn}) from ${table} where Date like CONCAT(#{date},'%')
+  </select>
+  
+  <select id="t_getLotNoFirstID" resultType="Integer">
+  	select ID FROM ${table} where ${lotNumberColumn} like CONCAT(#{lotNo},'%') LIMIT 1
+  </select>
+  
+  <select id="t_getLotNoLastID" resultType="Integer">
+	select ID FROM ${table} where ${lotNumberColumn} like CONCAT(#{lotNo},'%') ORDER BY ID DESC LIMIT 1
+  </select>
+  
+  <select id="t_getOkCount" resultType="Integer">
+  	select count(ID) from ${table} where ID BETWEEN #{lotNoFirstID} and #{lotNoLastID} and Judge = 'OK'
+  </select>
+  
+  <select id="t_getID" resultType="Integer">
+  	select ID from ${table} where ID BETWEEN #{lotNoFirstID} and #{lotNoLastID} and Judge = 'NG'
+  </select>
+  
+  <select id="getColumnDetail" resultType="java.util.Map">
+	select c.column_name,c.alias,c.`group` from column_detail c
+	left join param_detail p on c.pd_id = p.id 
+	left join report_setting r on p.rs_id = r.id
+	where r.table_name = #{table}
+	and p.link = #{link}
+  </select>
+  
+  <select id="getSimilarityColumnName" resultType="String">
+	select p.similarity_column_name from param_detail p
+	left join report_setting r on p.rs_id = r.id  
+	where r.table_name = #{table}
+	and p.link = #{link}
+  </select>
+  
+  <select id="t_getSum" resultType="Integer">
+  	${sql}
+  </select>
+  
+  <select id="t_getGroupNgCount" resultType="java.util.Map">
+  	${sql}
+  	<foreach collection="actualNgIds" item="id" index="index" open="(" close=")" separator=",">
+		#{id}
+	</foreach>
+  </select>
+  
+  <select id="t_getCatANgInfo" resultType="java.util.Map">
+  	${sql}
+  	<foreach collection="actualNgIds" item="id" index="index" open="(" close=")" separator=",">
+		#{id}
+	</foreach>
+	${sql2}
+  </select>
+  
+  <select id="t_getCatBOrCatCNgInfo" resultType="java.util.Map">
+  	${sql}
+  	<foreach collection="actualNgIds" item="id" index="index" open="(" close=")" separator=",">
+		#{id}
+	</foreach>
+	${sql2}
+  </select>
+  
+  
+  <insert id="addReportSetting" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+  		insert into report_setting (product_number,table_name,lot_number_column_name,link_count)
+  		values (#{productNumber},#{tableName},#{lotNumberColumnName},#{linkCount});
+  </insert>
+  
+  <insert id="addParamDetail" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+  		insert into param_detail (link,similarity_column_name,rs_id)
+  		values (#{link},#{similarityColumnName},#{rsId});
+  </insert>
+  
+  <insert id="addColumnDetail">
+  		insert into column_detail (column_name, alias, `group`, pd_id) values
+  		<foreach collection="columnDetail" item="cd" separator=",">
+        	(#{cd.columnName}, #{cd.alias}, #{cd.group}, #{cd.pdId})	
+        </foreach> 
+  </insert>
+  
+  <delete id="delterParamDetailAndColumnDetailByRsId">
+  	delete p,c from  param_detail p,column_detail c where p.rs_id = #{id} and p.id = c.pd_id
+  </delete>
+  
+  <delete id="deleteReportSetting">
+  	delete r,p,c 
+	from report_setting r,param_detail p,column_detail c 
+	where r.id = #{id} and r.id = p.rs_id and p.id = c.pd_id
+  </delete>
   
   
   

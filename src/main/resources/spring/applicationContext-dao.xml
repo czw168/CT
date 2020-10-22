@@ -35,12 +35,23 @@
 		<property name="minIdle" value="5" />
 	</bean>
 	
+	<bean id="dataSourceMysqlSqlite" class="com.alibaba.druid.pool.DruidDataSource"
+		destroy-method="close">
+		<property name="url" value="${jdbc.mysqlSqlite.url}" />
+		<property name="username" value="${jdbc.mysqlSqlite.username}" />
+		<property name="password" value="${jdbc.mysqlSqlite.password}" />
+		<property name="driverClassName" value="${jdbc.mysqlSqlite.driver}" />
+		<property name="maxActive" value="10" />
+		<property name="minIdle" value="5" />
+	</bean>
+	
 	<!--动态数据源的配置-->
     <bean id="dynamicDataSource" class="cn.ubot.config.DynamicDataSource"><!-- 数据源类地址 -->
         <property name="targetDataSources">
             <map key-type="java.lang.String">
                 <entry key="mysql" value-ref="dataSourceMysql" />
                 <entry key="sqlite" value-ref="dataSourceSqlite" />
+                <entry key="mysqlSqlite" value-ref="dataSourceMysqlSqlite" />
             </map>
         </property>
         <!-- 默认数据源 -->

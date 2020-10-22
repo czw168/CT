@@ -18,7 +18,7 @@
 		-->
 	</appender>
 
-	<!-- 本机打印 -->
+	<!-- window文件输出 -->
 	<appender name="myFile" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="File" value="C:\\Users\\victor_chen\\Desktop\\log\\CT\\ct.log" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
@@ -26,13 +26,37 @@
 			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %5p (%C:%M) - %m%n" />
 		</layout>
 	</appender>
+	
+	<!-- linux文件输出 -->
+	<appender name="myLinuxFile" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/var/log/ct/ct.log" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %5p (%C:%M) - %m%n" />
+		</layout>
+	</appender>
 
-	<!-- 生产服打印 -->
+	<!-- <logger name="cn.ubot" additivity="false">
+		<priority value="info" />
+		<appender-ref ref="myFile" />  
+    </logger>
 
-	<!-- 根logger的设置 -->
 	<root>
-		<priority value="debugger" />
+		<priority value="debug" />
+		<appender-ref ref="myConsole" />
+	</root> -->
+	
+	<logger name="cn.ubot" additivity="true">
+		<priority value="debug" />
+    </logger>
+
+	<root>
+		<priority value="info" />
 		<appender-ref ref="myConsole" />
 		<!-- <appender-ref ref="myFile" /> -->
+		<appender-ref ref="myLinuxFile" />
 	</root>
+	
+	
+	
 </log4j:configuration>  

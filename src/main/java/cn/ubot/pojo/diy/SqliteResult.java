@@ -1,5 +1,10 @@
 package cn.ubot.pojo.diy;
 
+/**
+ *  report-list.jsp 的数据返回对象
+ * @author victor_chen
+ *
+ */
 public class SqliteResult {
 	private String lotNo;
 	private Integer actualOkCount;

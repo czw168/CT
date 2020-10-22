@@ -10,6 +10,7 @@ public class DynamicDataSource extends AbstractRoutingDataSource{
 
 	public static final String dataSourceMysql= "mysql";  
 	public static final String dataSourceSqlite = "sqlite";
+	public static final String dataSourceMysqlSqlite = "mysqlSqlite";
 	
 	//本地线程，获取当前正在执行的currentThread  
 	public static final ThreadLocal<String> contextHolder = new ThreadLocal<String>();

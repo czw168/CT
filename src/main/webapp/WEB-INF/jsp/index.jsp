@@ -16,7 +16,7 @@
 </head>
 
 <body class="easyui-layout">
-	<div data-options="region:'north',border:false" style="height:50px;padding:10px;">UBoT System&nbsp;&nbsp;&nbsp;Current User ：[${subject.principal}]&nbsp;&nbsp;<a href="doLogout" class="easyui-linkbutton">LogOut</a></div>
+	<div data-options="region:'north',border:false" style="height:50px;padding:10px;">Carrier Tape System&nbsp;&nbsp;&nbsp;Current User ：[${subject.principal}]&nbsp;&nbsp;<a href="doLogout" class="easyui-linkbutton">LogOut</a></div>
    	
    	<div data-options="region:'west',title:'Menu',split:true" style="width:270px;">
    		<div style="margin-top: 10px;margin-left: 10px;">
@@ -59,6 +59,7 @@
 		         	</ul>
 	         	</li>
          	</ul>
+         	<div style="margin-left: 10px;margin-top: 10px"><a href="${pageContext.request.contextPath}/reportMenu" class="easyui-linkbutton" style="width: 150px">Report</a></div>
    		</div>
     </div>
     
