@@ -56,16 +56,16 @@
 			// 链号
 			var link = i;
 			// 相似度字段名
-			var name_similarityColumnName = "edit_Link" + i + "_similarity_columnName";
-			var similarityColumnName = $("input[name='" + name_similarityColumnName + "']").val();
+			//var name_similarityColumnName = "edit_Link" + i + "_similarity_columnName";
+			//var similarityColumnName = $("input[name='" + name_similarityColumnName + "']").val();
 			jsonData += 
 				'{' + 
 					'"link":' + '"' + link + '",' +
-					'"similarityColumnName":' + '"Column' + similarityColumnName + '",' +
+					//'"similarityColumnName":' + '"Column' + similarityColumnName + '",' +
 					'"columnDetail":[';
 			
-			// 循环三次（A、B、C）获取每组的字段名和别名
-			for(var j = 1; j <= 3; j++){
+			// 循环两次（B、C）获取每组的字段名和别名
+			for(var j = 2; j <= 3; j++){
 				// 组名
 				var group = "";
 				if(j == 1){
@@ -107,20 +107,20 @@
 			
 		console.log(jsonData);
 		
-		$.ajax({
-		  type: 'POST',
-		  url: "${pageContext.request.contextPath}/report/updateReportSetting",
-		  data: jsonData,
-		  dataType: "json",
-		  contentType: "application/json;charset=UTF-8",
-		  success: function(result){
-				$.messager.alert("Message", result.msg);
-				if(result.status == 200){
-					$('#dataList').datagrid('reload');
-					$('#reportSettingEditWindow').window('close');
-				} 
-		  }
-		});
+		<%--$.ajax({--%>
+		<%--  type: 'POST',--%>
+		<%--  url: "${pageContext.request.contextPath}/report/updateReportSetting",--%>
+		<%--  data: jsonData,--%>
+		<%--  dataType: "json",--%>
+		<%--  contentType: "application/json;charset=UTF-8",--%>
+		<%--  success: function(result){--%>
+		<%--		$.messager.alert("Message", result.msg);--%>
+		<%--		if(result.status == 200){--%>
+		<%--			$('#dataList').datagrid('reload');--%>
+		<%--			$('#reportSettingEditWindow').window('close');--%>
+		<%--		} --%>
+		<%--  }--%>
+		<%--});--%>
 		
 	}	
 	

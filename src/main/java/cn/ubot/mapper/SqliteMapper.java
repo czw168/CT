@@ -74,7 +74,7 @@ public interface SqliteMapper {
 	List<Map<String,Object>> getColumnDetail(@Param("table")String table, @Param("link")Integer link);
 	// 获取相似度字段名
 	String getSimilarityColumnName(@Param("table")String table, @Param("link")Integer link);
-	
+	// 根据id和区域范围计算值
 	Integer t_getSum(@Param("sql")String sql);
 	
 	Map<String,Object> t_getGroupNgCount(@Param("sql")String sql, @Param("actualNgIds")List<Integer> actualNgIds);

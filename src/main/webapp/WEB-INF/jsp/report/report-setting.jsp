@@ -108,20 +108,20 @@
 		        					'<tr>' +
 		        						'<th>Link ' + i + '</th>' +
 		        					'</tr>' +
-		        					'<tr>' +
-		        						'<td><span style="margin-left: 20px">SimilarityCloumnName : <input class="easyui-numberbox" name="edit_Link' + i + '_similarity_columnName" id="edit_Link' + i + '_similarity_columnName" data-options="required:true" validtype="length[0,3]" style="width: 50px;height:25px"></span></td>' +
-		        					'</tr>' +
-		        					'<tr>' +
-		        						'<td><span style="margin-left: 20px">Cat A.</span></td>' +
-		        					'</tr>' +
-		        					'<tr style="margin-left: 10">' +
-		        						'<td>' +
-		        							'<p style="margin-left: 40px">' +
-		        								'CloumnName : <input class="easyui-numberbox" name="edit_Link' + i + '_A_columnName" id="edit_Link' + i + '_A_columnName" data-options="required:true" validtype="length[0,3]" style="width: 50px;height:25px">&nbsp;' +
-		        								'Alias : <input class="easyui-textbox" name="edit_Link' + i + '_A_alias" id="edit_Link' + i + '_A_alias" data-options="required:true" validtype="length[0,3]" style="width: 50px;height:25px">' +
-		        							'</p>' +
-		        						'</td>' +
-		        					'</tr>' +
+		        					// '<tr>' +
+		        					// 	'<td><span style="margin-left: 20px">SimilarityCloumnName : <input class="easyui-numberbox" name="edit_Link' + i + '_similarity_columnName" id="edit_Link' + i + '_similarity_columnName" data-options="required:true" validtype="length[0,3]" style="width: 50px;height:25px"></span></td>' +
+		        					// '</tr>' +
+		        					// '<tr>' +
+		        					// 	'<td><span style="margin-left: 20px">Cat A.</span></td>' +
+		        					// '</tr>' +
+		        					// '<tr style="margin-left: 10">' +
+		        					// 	'<td>' +
+		        					// 		'<p style="margin-left: 40px">' +
+		        					// 			'CloumnName : <input class="easyui-numberbox" name="edit_Link' + i + '_A_columnName" id="edit_Link' + i + '_A_columnName" data-options="required:true" validtype="length[0,3]" style="width: 50px;height:25px">&nbsp;' +
+		        					// 			'Alias : <input class="easyui-textbox" name="edit_Link' + i + '_A_alias" id="edit_Link' + i + '_A_alias" data-options="required:true" validtype="length[0,3]" style="width: 50px;height:25px">' +
+		        					// 		'</p>' +
+		        					// 	'</td>' +
+		        					// '</tr>' +
 		        					'<tr>' +
 		        						'<td>' +
 		        							'<span style="margin-left: 20px" >' +
@@ -165,9 +165,9 @@
 							for(var j = 0; j < paramDetail.length; j++){
 								var link = "Link" + (j + 1);
 								var columnDetail = paramDetail[j].columnDetail;
-								var similarityColumnName = paramDetail[j].similarityColumnName;
+								//var similarityColumnName = paramDetail[j].similarityColumnName;
 								// 截取后面的数字
-								similarityColumnName = similarityColumnName.substring(6);
+								//similarityColumnName = similarityColumnName.substring(6);
 								for(var y = 0; y < columnDetail.length; y++){
 									var columnName = columnDetail[y].columnName;
 									// 截取后面的数字
@@ -177,14 +177,14 @@
 									if(group != "A"){
 										columnAdd(link,group,columnName,alias);
 									}else{
-										var similarityCloumnNameId = "#edit_" + link + "_similarity_columnName";
-										$(similarityCloumnNameId).numberbox('setValue',similarityColumnName);
+										//var similarityCloumnNameId = "#edit_" + link + "_similarity_columnName";
+										//$(similarityCloumnNameId).numberbox('setValue',similarityColumnName);
 										
-										var cloumnNameId = "#edit_" + link + "_A_columnName";
-										$(cloumnNameId).numberbox('setValue',columnName);
+										//var cloumnNameId = "#edit_" + link + "_A_columnName";
+										//$(cloumnNameId).numberbox('setValue',columnName);
 										
-										var aliasId = "#edit_" + link + "_A_alias";
-										$(aliasId).textbox('setValue',alias);
+										//var aliasId = "#edit_" + link + "_A_alias";
+										//$(aliasId).textbox('setValue',alias);
 									}
 								}
 							}

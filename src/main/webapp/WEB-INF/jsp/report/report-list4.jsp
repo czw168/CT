@@ -13,58 +13,110 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/statics/js/jquery-easyui-1.7.2/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/statics/js/jquery-easyui-1.7.2/locale/easyui-lang-en.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/statics/js/jquery.serializejson.js"></script>
+
+
+    <style type="text/css">
+        .datagrid-header-row .datagrid-cell span {
+            white-space: normal !important;
+            word-wrap: normal !important;
+        }
+    </style>
+
 <body>
 
 <div id="datagridResult">
 
-	<%-- <table class="easyui-datagrid"
-            data-options="
-           				fitColumns:true,
-            			loadMsg:'The amount of data is huge. Please wait a moment...',
-            			method:'GET',
-            			url:'${pageContext.request.contextPath}/report/report4?date=${date}&table=${table}'
-            			">
-        <thead>
-            <tr>
-                <th data-options="field:'lotNo',align:'center',width:'200'" rowspan="3">Lot No.</th>
-                <th data-options="field:'actualOkCount',align:'center',width:'100'" rowspan="3">OK</th>
-                <th colspan="19">NG</th>
-                <th data-options="field:'result',align:'center',styler:resultStyler,width:'200'" rowspan="3">Result</th>
-            </tr>
-            <tr>
-                <th>Cat.A</th>
-                <th colspan="7">Cat.B</th>
-                <th colspan="10">Cat.C</th>
-                <th>Total</th>
-            </tr>
-           	<tr>
-           		<!-- A组 -->
-           		<th data-options="field:'a',align:'center',width:'100'"></th>
-           		<!-- B组 -->
-                <th data-options="field:'c1',align:'center',width:'50'">C1</th>
-                <th data-options="field:'c2',align:'center',width:'50'">C2</th>
-                <th data-options="field:'s1',align:'center',width:'50'">S1</th>
-                <th data-options="field:'s2',align:'center',width:'50'">S2</th>
-                <th data-options="field:'s3',align:'center',width:'50'">S3</th>
-                <th data-options="field:'s4',align:'center',width:'50'">S4</th>
-                <th data-options="field:'s5',align:'center',width:'50'">S5</th>
-                <!-- C组 -->
-                <th data-options="field:'sf1',align:'center',width:'50'">SF1</th>
-                <th data-options="field:'sf2',align:'center',width:'50'">SF2</th>
-                <th data-options="field:'sf3',align:'center',width:'50'">SF3</th>
-                <th data-options="field:'sf4',align:'center',width:'50'">SF4</th>
-                <th data-options="field:'ed1',align:'center',width:'50'">ED1</th>
-                <th data-options="field:'ed2',align:'center',width:'50'">ED2</th>
-                <th data-options="field:'ch2',align:'center',width:'50'">CH1</th>
-                <th data-options="field:'ch2',align:'center',width:'50'">CH2</th>
-                <th data-options="field:'sh1',align:'center',width:'50'">SH1</th>
-                <th data-options="field:'sh2',align:'center',width:'50'">SH2</th>
-                <!-- Total -->
-                <th data-options="field:'actualNgCount',align:'center',width:'100'"></th>
-            </tr>
-        </thead>
-    </table> --%>
-    
+<%--	<table class="easyui-datagrid"--%>
+<%--            data-options="--%>
+<%--           				fitColumns:true,--%>
+<%--            			loadMsg:'The amount of data is huge. Please wait a moment...',--%>
+<%--            			method:'GET',--%>
+<%--            			url:'${pageContext.request.contextPath}/report/report4?date=${date}&table=${table}'--%>
+<%--            			">--%>
+<%--        <thead>--%>
+<%--            <tr>--%>
+<%--                <th data-options="field:'lotNo',align:'center',width:'200'" rowspan="3">Lot No.</th>--%>
+<%--                <th data-options="field:'actualOkCount',align:'center',width:'100'" rowspan="3">OK</th>--%>
+<%--                <th colspan="19">NG</th>--%>
+<%--                <th data-options="field:'result',align:'center',styler:resultStyler,width:'200'" rowspan="3">Result</th>--%>
+<%--            </tr>--%>
+<%--            <tr>--%>
+<%--                <th>Cat.A</th>--%>
+<%--                <th colspan="7">Cat.B</th>--%>
+<%--                <th colspan="10">Cat.C</th>--%>
+<%--                <th>Total</th>--%>
+<%--            </tr>--%>
+<%--           	<tr>--%>
+<%--           		<!-- A组 -->--%>
+<%--           		<th data-options="field:'a',align:'center',width:'100'"></th>--%>
+<%--           		<!-- B组 -->--%>
+<%--                <th data-options="field:'c1',align:'center',width:'50'">C1</th>--%>
+<%--                <th data-options="field:'c2',align:'center',width:'50'">C2</th>--%>
+<%--                <th data-options="field:'s1',align:'center',width:'50'">S1</th>--%>
+<%--                <th data-options="field:'s2',align:'center',width:'50'">S2</th>--%>
+<%--                <th data-options="field:'s3',align:'center',width:'50'">S3</th>--%>
+<%--                <th data-options="field:'s4',align:'center',width:'50'">S4</th>--%>
+<%--                <th data-options="field:'s5',align:'center',width:'50'">S5</th>--%>
+<%--                <!-- C组 -->--%>
+<%--                <th data-options="field:'sf1',align:'center',width:'50'">SF1</th>--%>
+<%--                <th data-options="field:'sf2',align:'center',width:'50'">SF2</th>--%>
+<%--                <th data-options="field:'sf3',align:'center',width:'50'">SF3</th>--%>
+<%--                <th data-options="field:'sf4',align:'center',width:'50'">SF4</th>--%>
+<%--                <th data-options="field:'ed1',align:'center',width:'50'">ED1</th>--%>
+<%--                <th data-options="field:'ed2',align:'center',width:'50'">ED2</th>--%>
+<%--                <th data-options="field:'ch2',align:'center',width:'50'">CH1</th>--%>
+<%--                <th data-options="field:'ch2',align:'center',width:'50'">CH2</th>--%>
+<%--                <th data-options="field:'sh1',align:'center',width:'50'">SH1</th>--%>
+<%--                <th data-options="field:'sh2',align:'center',width:'50'">SH2</th>--%>
+<%--                <!-- Total -->--%>
+<%--                <th data-options="field:'actualNgCount',align:'center',width:'100'"></th>--%>
+<%--            </tr>--%>
+<%--        </thead>--%>
+<%--    </table>--%>
+
+
+
+<%--	<table class="easyui-datagrid"--%>
+<%--		   data-options="--%>
+<%--           				fitColumns:true,--%>
+<%--            			loadMsg:'The amount of data is huge. Please wait a moment...',--%>
+<%--            			method:'GET',--%>
+<%--            			url:'${pageContext.request.contextPath}/report/report4?date=${date}&table=${table}'--%>
+<%--            			">--%>
+<%--		<thead>--%>
+<%--		<tr>--%>
+<%--			<th data-options="field:'lotNo',align:'center',width:'200'" rowspan="2">Lot No.</th>--%>
+<%--			<th data-options="field:'result',align:'center',styler:resultStyler,width:'200'" rowspan="2">Result</th>--%>
+<%--			<th data-options="field:'actualOkCount',align:'center',width:'100'" rowspan="2">OK</th>--%>
+<%--			<!-- Total -->--%>
+<%--			<th data-options="field:'actualNgCount',align:'center',width:'100'" rowspan="2">Total</th>--%>
+<%--			<th colspan="7">Cat.B</th>--%>
+<%--			<th colspan="10">Cat.C</th>--%>
+<%--		</tr>--%>
+<%--		<tr>--%>
+<%--			<!-- B组 -->--%>
+<%--			<th data-options="field:'c1',align:'center',width:'50'">C1</th>--%>
+<%--			<th data-options="field:'c2',align:'center',width:'50'">C2</th>--%>
+<%--			<th data-options="field:'s1',align:'center',width:'50'">S1</th>--%>
+<%--			<th data-options="field:'s2',align:'center',width:'50'">S2</th>--%>
+<%--			<th data-options="field:'s3',align:'center',width:'50'">S3</th>--%>
+<%--			<th data-options="field:'s4',align:'center',width:'50'">S4</th>--%>
+<%--			<th data-options="field:'s5',align:'center',width:'50'">S5</th>--%>
+<%--			<!-- C组 -->--%>
+<%--			<th data-options="field:'sf1',align:'center',width:'50'">SF1</th>--%>
+<%--			<th data-options="field:'sf2',align:'center',width:'50'">SF2</th>--%>
+<%--			<th data-options="field:'sf3',align:'center',width:'50'">SF3</th>--%>
+<%--			<th data-options="field:'sf4',align:'center',width:'50'">SF4</th>--%>
+<%--			<th data-options="field:'ed1',align:'center',width:'50'">ED1</th>--%>
+<%--			<th data-options="field:'ed2',align:'center',width:'50'">ED2</th>--%>
+<%--			<th data-options="field:'ch2',align:'center',width:'50'">CH1</th>--%>
+<%--			<th data-options="field:'ch2',align:'center',width:'50'">CH2</th>--%>
+<%--			<th data-options="field:'sh1',align:'center',width:'50'">SH1</th>--%>
+<%--			<th data-options="field:'sh2',align:'center',width:'50'">SH2</th>--%>
+
+<%--		</tr>--%>
+<%--		</thead>--%>
+<%--	</table>--%>
 	
 </div>
 

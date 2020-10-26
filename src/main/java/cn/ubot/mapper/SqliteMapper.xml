@@ -689,8 +689,10 @@
   </insert>
   
   <insert id="addParamDetail" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
-  		insert into param_detail (link,similarity_column_name,rs_id)
-  		values (#{link},#{similarityColumnName},#{rsId});
+			<!--insert into param_detail (link,similarity_column_name,rs_id)
+			values (#{link},#{similarityColumnName},#{rsId}); -->
+			insert into param_detail (link,rs_id)
+  			values (#{link},#{rsId});
   </insert>
   
   <insert id="addColumnDetail">

@@ -131,16 +131,16 @@
 			// 链号
 			var link = i;
 			// 相似度字段名
-			var name_similarityColumnName = "Link" + i + "_similarity_columnName";
-			var similarityColumnName = $("input[name='" + name_similarityColumnName + "']").val();
+			//var name_similarityColumnName = "Link" + i + "_similarity_columnName";
+			//var similarityColumnName = $("input[name='" + name_similarityColumnName + "']").val();
 			jsonData += 
 				'{' + 
 					'"link":' + '"' + link + '",' +
-					'"similarityColumnName":' + '"Column' + similarityColumnName + '",' +
+					//'"similarityColumnName":' + '"Column' + similarityColumnName + '",' +
 					'"columnDetail":[';
 			
-			// 循环三次（A、B、C）获取每组的字段名和别名
-			for(var j = 1; j <= 3; j++){
+			// 循环两次（B、C）获取每组的字段名和别名
+			for(var j = 2; j <= 3; j++){
 				// 组名
 				var group = "";
 				if(j == 1){
@@ -200,7 +200,6 @@
 					$('#reportSettingAddWindow').window('close');
 				}
 		  }
-		 	
 		});
 		
 	}	
@@ -221,7 +220,7 @@
 		var str =
 		'<p style="margin-left: 40px">' +
 			'CloumnName : <input class="easyui-numberbox" name="' + link + '_' + group + '_columnName" data-options="required:true" validtype="length[0,3]" style="width: 50px;height:25px">&nbsp;' + 
-			'Alias : <input class="easyui-textbox" name="' + link + '_' + group + '_alias" data-options="required:true" validtype="length[0,3]" style="width: 50px;height:25px">' +
+			'Alias : <input class="easyui-textbox" name="' + link + '_' + group + '_alias" data-options="required:true" validtype="length[0,10]" style="width: 50px;height:25px">' +
 		'</p>';
 		
 		$(id).append(str);
@@ -246,24 +245,24 @@
 				'<tr>' +
 					'<th>Link ' + i + '</th>' +
 				'</tr>' +
-				'<tr>' +
-					'<td><span style="margin-left: 20px">SimilarityCloumnName : <input class="easyui-numberbox" name="Link' + i + '_similarity_columnName" data-options="required:true" validtype="length[0,3]" style="width: 50px;height:25px"></span></td>' +
-				'</tr>' +
-				'<tr>' +
-					'<td><span style="margin-left: 20px">Cat A.</span></td>' +
-				'</tr>' +
-				'<tr style="margin-left: 10">' +
-					'<td>' +
-						'<p style="margin-left: 40px">' +
-							'CloumnName : <input class="easyui-numberbox" name="Link' + i + '_A_columnName" data-options="required:true" validtype="length[0,3]" style="width: 50px;height:25px">&nbsp;' +
-							'Alias : <input class="easyui-textbox" name="Link' + i + '_A_alias" data-options="required:true" validtype="length[0,3]" style="width: 50px;height:25px">' +
-						'</p>' +
-					'</td>' +
-				'</tr>' +
+				// '<tr>' +
+				// 	'<td><span style="margin-left: 20px">SimilarityCloumnName : <input class="easyui-numberbox" name="Link' + i + '_similarity_columnName" data-options="required:true" validtype="length[0,3]" style="width: 50px;height:25px"></span></td>' +
+				// '</tr>' +
+				// '<tr>' +
+				// 	'<td><span style="margin-left: 20px">Cat A.</span></td>' +
+				// '</tr>' +
+				// '<tr style="margin-left: 10">' +
+				// 	'<td>' +
+				// 		'<p style="margin-left: 40px">' +
+				// 			'CloumnName : <input class="easyui-numberbox" name="Link' + i + '_A_columnName" data-options="required:true" validtype="length[0,3]" style="width: 50px;height:25px">&nbsp;' +
+				// 			'Alias : <input class="easyui-textbox" name="Link' + i + '_A_alias" data-options="required:true" validtype="length[0,3]" style="width: 50px;height:25px">' +
+				// 		'</p>' +
+				// 	'</td>' +
+				// '</tr>' +
 				'<tr>' +
 					'<td>' +
 						'<span style="margin-left: 20px" >' +
-						'Cat B.' +
+						'Major defect.' +
 						'<a id="Link' + i + '_B_columnAdd" class="easyui-linkbutton" iconCls="icon-add" onclick="columnAdd(\'Link' + i + '\',\'B\')" style="height: 15px"></a>' +
 						'<a id="Link' + i + '_B_columnRemove" class="easyui-linkbutton" iconCls="icon-remove" onclick="columnRemove(\'Link' + i + '\',\'B\')" style="height: 15px"></a>' +
 						'</span>' +
@@ -275,7 +274,7 @@
 				'<tr>' +
 					'<td>' +
 						'<span style="margin-left: 20px" >' +
-						'Cat C.' +
+						'Minor defect.' +
 						'<a id="Link' + i + '_C_columnAdd" class="easyui-linkbutton" iconCls="icon-add" onclick="columnAdd(\'Link' + i + '\',\'C\')" style="height: 15px"></a>' +
 						'<a id="Link' + i + '_C_columnRemove" class="easyui-linkbutton" iconCls="icon-remove" onclick="columnRemove(\'Link' + i + '\',\'C\')" style="height: 15px"></a>' +
 						'</span>' +
